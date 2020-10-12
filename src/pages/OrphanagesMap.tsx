@@ -3,6 +3,7 @@ import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 import MapMarkerImg from "../images/map-marker.svg";
+import "../styles/pages/orphanages-map.css";
 
 function OrphanagesMap() {
   return (
