@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Map, Marker, TileLayer } from "react-leaflet";
 import { FiPlus } from "react-icons/fi";
 
@@ -11,6 +11,10 @@ import { useHistory } from "react-router-dom";
 
 export default function CreateOrphanage() {
   const { push } = useHistory();
+  const [initialPos, setInitialPos] = useState<[number, number]>([
+    -26.3047811,
+    -48.8500632,
+  ]);
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
@@ -19,6 +23,13 @@ export default function CreateOrphanage() {
   const [open_on_weekends, setOpenOnWeekends] = useState(true);
   const [images, setImages] = useState<File[]>([]);
   const [previewImg, setPreviewImg] = useState<string[]>([]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setInitialPos([latitude, longitude]);
+    });
+  }, []);
 
   const handleMapClick = (event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;
@@ -74,7 +85,7 @@ export default function CreateOrphanage() {
             <legend>Dados</legend>
 
             <Map
-              center={[-26.3024255, -48.8579188]}
+              center={initialPos}
               style={{ width: "100%", height: 280 }}
               zoom={14}
               onClick={handleMapClick}
