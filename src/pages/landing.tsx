@@ -6,7 +6,7 @@ import "../styles/pages/landing.css";
 import logo from "../images/logo.svg";
 import { Link } from "react-router-dom";
 
-function Landing() {
+export default function Landing() {
   return (
     <div id="page-landing">
       <div className="content-wrapper">
@@ -26,5 +26,3 @@ function Landing() {
     </div>
   );
 }
-
-export default Landing;
